@@ -39,10 +39,11 @@ header {
   
   main {
     width: 100%;
+    padding-top: 10px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     overflow-y: auto;
   }
