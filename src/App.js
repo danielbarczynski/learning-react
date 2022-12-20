@@ -28,38 +28,41 @@ function App(){
     const [inputItem, setInputItem] = React.useState('');
 
     const handleCheck = (id) => {
-        const newItems2 = items.map((item) => {
+        const newItems = items.map((item) => {
             if (item.id === id)
                 item.checked = !item.checked;
-            return item; // for every item return item
+            return item;
         });
 
-        setItems(newItems2);
-        localStorage.setItem('groceryList', JSON.stringify(newItems2));
+        saveItems(newItems);
     };
 
     const handleDelete = (id) => {
         const newItems = items.filter((item) => item.id !== id);
-        setItems(newItems);
-        localStorage.setItem('groceryList', JSON.stringify(newItems));
+        saveItems(newItems);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setInputItem('');
         addItem();
+        setInputItem('');
     };
 
     const addItem = () => {
         const newItem = {
-            id: items.lastIndexOf() + 1,
+            id: items[items.length - 1].id + 1,
             checked: false,
             description: `${inputItem}` 
         }
 
         items.push(newItem);
+        saveItems(items);
     }
 
+    const saveItems = (newItems) => {
+        setItems(newItems);
+        localStorage.setItem('groceryList', JSON.stringify(newItems));
+    }
     return (
         <div className="App">
             <Header 
