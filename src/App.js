@@ -1,14 +1,15 @@
 import React from "react";
+import Content from "./Content";
+import Footer from "./Footer";
+import Header from "./Header";
 
 function App(){
-    const handleNameChange = () => {
-        const names = ['Nathan', 'Elizabeth', 'Marcus', 'Kayla']
-        let rand = Math.floor(Math.random() * 4);
-        return names[rand];
-    }
-
     return (
-        <h1>Hello { handleNameChange() }</h1>
+        <div>
+            <Header />
+            <Content />
+            <Footer />
+        </div>
     )
 }
 

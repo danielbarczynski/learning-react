@@ -1,1 +1,1 @@
-Another repo for learning React. Every exercise is in the different commit.
+Another repo for learning ReactJS. Every exercise is in the different commit.
