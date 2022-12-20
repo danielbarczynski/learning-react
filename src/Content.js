@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const Content = () => {
     const handleNameChange = () => {
@@ -8,8 +8,11 @@ const Content = () => {
     }
 
     return (
-        <main>Hello {handleNameChange()}</main>
+        // styling same as in index.css just for learning purposes
+        <main style={{fontSize: '22px', color: 'aliceblue'}}>
+            Hello {handleNameChange()}
+        </main>
     )
-}
+};
 
-export default Content
+export default Content;
