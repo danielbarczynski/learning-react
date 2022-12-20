@@ -1,27 +1,63 @@
 import React from 'react';
+import { FaTrashAlt } from 'react-icons/fa';
 
 const Content = () => {
-    const [count, setCount] = React.useState(0); // if all React imported. 0 is default int value for my counter
-    // const [count, setCount] = useState(0); // if all just {useState} imported
+    const [items, setItem] = React.useState([
+        {
+            id: 1,
+            checked: false,
+            description: 'milk'
+        },
+        {
+            id: 2,
+            checked: false,
+            description: 'bananas'
+        },
+        {
+            id: 3,
+            checked: false,
+            description: 'juice'
+        }
+    ]);
 
-    const handleNameChange = () => {
-        const names = ['Nathan', 'Elizabeth', 'Marcus', 'Kayla']
-        let rand = Math.floor(Math.random() * 4);
-        return names[rand];
+    const handleCheck = (id) => {
+        const newItems = items.map((x) => x.id === id ? { ...x, checked: !x.checked } : x);
+        setItem(newItems);
+        localStorage.setItem('groceryList', JSON.stringify(newItems)); // naming it grocery list
     }
 
-    const handleClickEvent = () => {
-        // count++; // can't because constant
-        // setCount(count++); // it is also assigment to const 
-        setCount(count + 1); // this is fine
-        console.log(count) //* it also changes handleNameChange (from react virtual DOM)
-    };
-  
+    const handleDelete = (id) => {
+        const newItems = items.filter((x) => x.id !== id);
+        setItem(newItems);
+        localStorage.setItem('groceryList', JSON.stringify(newItems));
+    }
+
     return (
-        // styling same as in index.css just for learning purposes
-        <main style={{fontSize: '22px', color: 'aliceblue'}}>
-            Hello {handleNameChange()}
-            <button onClick={handleClickEvent}>Click me</button>
+        <main>
+            {items.length ? (
+            <ul>
+                {items.map((item) => (
+                    <li key={item.id} className='item'>
+                        <input
+                            type="checkbox"
+                            onChange={() => handleCheck(item.id)}
+                            checked={item.checked}
+                        />
+                        <label
+                            style={item.checked ? {textDecoration: 'line-through'} : null}
+                            onDoubleClick={() => handleCheck(item.id)}
+                        >{item.description}</label>
+                        <FaTrashAlt 
+                            role="button" 
+                            tabIndex="0"
+                            onClick={() => handleDelete(item.id)}    
+                        />
+                    </li>
+                ))}
+            </ul>
+            ) : (
+                <p>Your list is empty</p>
+            )}
         </main>
     )
 };
