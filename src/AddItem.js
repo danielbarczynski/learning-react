@@ -1,8 +1,8 @@
-import React from 'react'
+import { useRef } from 'react'
 import { FaPlus } from 'react-icons/fa';
 
 const AddItem = ({ handleSubmit, setInputItem, inputItem }) => {
-	const inputRef = React.useRef(); 
+	const inputRef = useRef(); 
 
 	return (
 		<form className="addForm" onSubmit={(e) => handleSubmit(e)}>

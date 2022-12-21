@@ -1,16 +1,20 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import AddItem from "./AddItem";
 import Content from "./Content";
 import Footer from "./Footer";
 import Header from "./Header";
 import SearchItem from "./SearchItem";
-import './index.css';
+import "./index.css";
 
 
 function App() {
-    const [items, setItems] = React.useState(JSON.parse(localStorage.getItem('groceryList')));
-    const [inputItem, setInputItem] = React.useState('');
-    const [searchItem, setSearchItem] = React.useState('');
+    const [items, setItems] = useState(JSON.parse(localStorage.getItem('groceryList')));
+    const [inputItem, setInputItem] = useState('');
+    const [searchItem, setSearchItem] = useState('');
+
+    useEffect(() => { //* updates state on changes in items. cannot use inside function
+        localStorage.setItem('groceryList', JSON.stringify(items));
+    }, [items]);
 
     const handleCheck = (id) => {
         const newItems = items.map((item) => {
@@ -19,12 +23,12 @@ function App() {
             return item;
         });
 
-        saveItems(newItems);
+        setItems(newItems);
     };
 
     const handleDelete = (id) => {
         const newItems = items.filter((item) => item.id !== id);
-        saveItems(newItems);
+        setItems(newItems);
     };
 
     const handleSubmit = (e) => {
@@ -35,19 +39,15 @@ function App() {
 
     const addItem = () => {
         const newItem = {
-            id: items[items.length - 1].id + 1,
+            id: items.length ? items[items.length - 1].id + 1 : 1,
             checked: false,
             description: `${inputItem}`
         }
-
-        items.push(newItem);
-        saveItems(items);
+        const newItems = [...items, newItem]; // uses useEffect
+        // items.push(newItem); // not uses useEffect
+        setItems(newItems)
     }
 
-    const saveItems = (newItems) => {
-        setItems(newItems);
-        localStorage.setItem('groceryList', JSON.stringify(newItems));
-    }
     return (
         <div className="App">
             <Header

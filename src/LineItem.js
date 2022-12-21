@@ -1,4 +1,3 @@
-import React from 'react'
 import { FaTrashAlt } from 'react-icons/fa';
 
 //* very useful, because it is used every time we add a new element to the list

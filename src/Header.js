@@ -1,6 +1,3 @@
-import React from 'react';
-
-// or (props) ... {props.title}
 const Header = ({title}) => {
   return (
       <header>
