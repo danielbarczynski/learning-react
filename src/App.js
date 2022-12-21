@@ -8,13 +8,38 @@ import "./index.css";
 
 
 function App() {
-    const [items, setItems] = useState(JSON.parse(localStorage.getItem('groceryList')));
+    const API_URL = 'http://localhost:3500/items';
+    const [items, setItems] = useState([]);
     const [inputItem, setInputItem] = useState('');
     const [searchItem, setSearchItem] = useState('');
+    const [catchError, setCatchError] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => { //* updates state on changes in items. cannot use inside function
-        localStorage.setItem('groceryList', JSON.stringify(items));
-    }, [items]);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(API_URL);
+
+                if (!response.ok) 
+                    throw Error('Did not receive expected data');
+
+                const dbItems = await response.json();
+                setItems(dbItems);
+
+            } catch (error) {
+                setCatchError(error.message);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+        
+        // (async () => await fetchData())();
+        setTimeout(() => {
+            fetchData();
+        }, 2000);
+    }, []);
+
+   
 
     const handleCheck = (id) => {
         const newItems = items.map((item) => {
@@ -66,6 +91,8 @@ function App() {
                 items={items.filter((item) => ((item.description).toLowerCase()).includes(searchItem.toLowerCase()))}
                 handleCheck={handleCheck}
                 handleDelete={handleDelete}
+                catchError={catchError}
+                isLoading={isLoading}
             />
             <Footer
                 length={items.length}
