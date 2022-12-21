@@ -1,1 +1,1 @@
-Yet another repo for learning ReactJS purposes. Every exercise is in the different commit.
+Branch for learning routing in react v6 purposes
