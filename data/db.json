@@ -1,19 +1,14 @@
 {
-    "items": [
-        {
-            "id": 1,
-            "checked": false,
-            "description": "milk"
-        },
-        {
-            "id": 2,
-            "checked": false,
-            "description": "bananas"
-        },
-        {
-            "id": 3,
-            "checked": false,
-            "description": "orange juice"
-        }
-    ]
+  "items": [
+    {
+      "id": 1,
+      "checked": false,
+      "description": "milk"
+    },
+    {
+      "id": 2,
+      "checked": false,
+      "description": "bananas"
+    }
+  ]
 }
